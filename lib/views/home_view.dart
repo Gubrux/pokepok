@@ -52,9 +52,12 @@ class _HomeViewState extends ConsumerState<HomeView> {
           itemBuilder: (context, index) => PokemonMainView(pokemon: data.pokemons[index]),
         );
       },
-      error: (error, stackTrace) => Center(
-        child: Text(
-          error.toString(),
+      error: (error, stackTrace) => Scaffold(
+        body: Center(
+          child: Text(
+            error.toString(),
+            style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+          ),
         ),
       ),
       loading: () => Center(
