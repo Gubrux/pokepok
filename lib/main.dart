@@ -30,7 +30,6 @@ class Pokepok extends StatelessWidget {
         useMaterial3: true,
       ),
       home: const HomeView(),
-      // debugShowCheckedModeBanner: false,
     );
   }
 }
