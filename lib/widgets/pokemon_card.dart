@@ -9,20 +9,24 @@ class PokemonCard extends StatelessWidget {
       width: 300,
       height: 100,
       decoration: BoxDecoration(
-        color: Colors.red,
+        color: Colors.white,
         borderRadius: BorderRadius.circular(10),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           Image.asset(
-            'assets/charmander.jpg',
+            'assets/charmilion.png',
             width: 100,
             height: 100,
           ),
           Text(
             'Roberrrt',
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: Colors.black, fontFamily: 'Poppins'),
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.w600,
+              color: Colors.black,
+            ),
           ),
           Icon(
             Icons.delete_outline,

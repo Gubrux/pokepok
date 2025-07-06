@@ -8,10 +8,18 @@ class FavPokemons extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          'Mis favoritos',
-          style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: Colors.black, fontFamily: 'Poppins'),
+        title: Align(
+          alignment: Alignment.centerRight,
+          child: Text(
+            'Mis favoritos',
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.w600,
+              color: Colors.black,
+            ),
+          ),
         ),
+        backgroundColor: Colors.orange,
       ),
       body: Center(
         child: Column(

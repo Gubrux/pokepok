@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 
 class StatsTable extends StatelessWidget {
-  const StatsTable({super.key});
+  final String attack;
+  final String defense;
+  final String hp;
+  final String type;
+  final Color backgroundColor;
+  const StatsTable({super.key, required this.attack, required this.defense, required this.hp, required this.type, required this.backgroundColor});
 
   @override
   Widget build(BuildContext context) {
@@ -15,46 +20,47 @@ class StatsTable extends StatelessWidget {
         borderRadius: BorderRadius.circular(24),
       ),
       child: Column(
-        mainAxisSize: MainAxisSize.min,
+        spacing: 16,
         children: [
           Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               StatRow(
                 label: 'Attack',
-                value: '49',
+                value: attack,
                 highlighted: true,
                 width: cellWidth,
                 height: cellHeight,
+                backgroundColor: backgroundColor,
               ),
-              const SizedBox(width: 16),
               StatRow(
                 label: 'Defense',
-                value: '45',
+                value: defense,
                 highlighted: true,
                 width: cellWidth,
                 height: cellHeight,
+                backgroundColor: backgroundColor,
               ),
             ],
           ),
-          const SizedBox(height: 16),
           Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               StatRow(
                 label: 'HP',
-                value: '45',
+                value: hp,
                 highlighted: true,
                 width: cellWidth,
                 height: cellHeight,
+                backgroundColor: backgroundColor,
               ),
-              const SizedBox(width: 16),
               StatSingleCell(
-                text: 'Type: Fire',
+                text: 'Type: ${type[0].toUpperCase() + type.substring(1)}',
                 width: cellWidth,
                 height: cellHeight,
               ),
             ],
           ),
-          const SizedBox(height: 32),
           SizedBox(
             width: double.infinity,
             child: ElevatedButton(
@@ -88,6 +94,7 @@ class StatRow extends StatelessWidget {
   final bool highlighted;
   final double width;
   final double height;
+  final Color backgroundColor;
 
   const StatRow({
     required this.label,
@@ -95,6 +102,7 @@ class StatRow extends StatelessWidget {
     this.highlighted = false,
     required this.width,
     required this.height,
+    required this.backgroundColor,
     super.key,
   });
 
@@ -110,7 +118,7 @@ class StatRow extends StatelessWidget {
             child: Container(
               height: height,
               decoration: BoxDecoration(
-                color: highlighted ? Colors.orange : Colors.white,
+                color: highlighted ? backgroundColor : Colors.white,
                 borderRadius: const BorderRadius.only(
                   topLeft: Radius.circular(14),
                   bottomLeft: Radius.circular(14),
@@ -144,7 +152,7 @@ class StatRow extends StatelessWidget {
               child: Text(
                 value,
                 style: TextStyle(
-                  color: highlighted ? Colors.grey[400] : Colors.grey[600],
+                  color: Colors.grey[700],
                   fontWeight: FontWeight.w600,
                   fontSize: 16,
                 ),
@@ -184,7 +192,7 @@ class StatSingleCell extends StatelessWidget {
         child: Text(
           text,
           style: TextStyle(
-            color: Colors.grey[600],
+            color: Colors.grey[700],
             fontWeight: FontWeight.w600,
             fontSize: 16,
           ),
