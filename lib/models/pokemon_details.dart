@@ -28,6 +28,20 @@ class PokemonDetails {
           ),
         ),
       );
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "name": name,
+        "sprites": {
+          "other": {
+            "home": {
+              "front_default": sprite,
+            }
+          }
+        },
+        "stats": stats.map((x) => x.toJson()).toList(),
+        "types": types.map((x) => x.toJson()).toList(),
+      };
 }
 
 class Stat {
@@ -43,6 +57,13 @@ class Stat {
         baseStat: json["base_stat"],
         statName: json["stat"]['name'],
       );
+
+  Map<String, dynamic> toJson() => {
+        "base_stat": baseStat,
+        "stat": {
+          "name": statName,
+        },
+      };
 }
 
 class Type {
@@ -58,4 +79,11 @@ class Type {
         slot: json["slot"],
         typeName: json["type"]["name"],
       );
+
+  Map<String, dynamic> toJson() => {
+        "slot": slot,
+        "type": {
+          "name": typeName,
+        },
+      };
 }
