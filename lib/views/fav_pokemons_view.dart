@@ -3,8 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pokepok/providers/pokemon_provider.dart';
 import 'package:pokepok/widgets/pokemon_card.dart';
 
-class FavPokemons extends ConsumerWidget {
-  const FavPokemons({super.key});
+class FavPokemonsView extends ConsumerWidget {
+  const FavPokemonsView({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

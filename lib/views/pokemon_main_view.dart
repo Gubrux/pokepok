@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pokepok/models/pokemon_details.dart';
 import 'package:pokepok/providers/pokemon_provider.dart';
-import 'package:pokepok/views/fav_pokemons.dart';
+import 'package:pokepok/views/fav_pokemons_view.dart';
 import 'package:pokepok/widgets/pokemon_header.dart';
 import 'package:pokepok/widgets/pokemon_image.dart';
 import 'package:pokepok/widgets/stats_table.dart';
@@ -36,7 +36,7 @@ class PokemonMainView extends ConsumerWidget {
                 iconSize: 40,
                 onPressed: () {
                   Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => const FavPokemons()),
+                    MaterialPageRoute(builder: (context) => const FavPokemonsView()),
                   );
                 },
               ),
