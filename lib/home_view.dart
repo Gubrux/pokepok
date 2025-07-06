@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pokepok/providers/pokemon_provider.dart';
-import 'package:pokepok/widgets/pokemon_main_view.dart';
+import 'package:pokepok/views/pokemon_main_view.dart';
 
 class HomeView extends ConsumerStatefulWidget {
   const HomeView({super.key});
