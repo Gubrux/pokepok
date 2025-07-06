@@ -1,17 +1,33 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:pokepok/models/pokemon_details.dart';
+import 'package:pokepok/providers/pokemon_provider.dart';
 
-class StatsTable extends StatelessWidget {
+class StatsTable extends ConsumerWidget {
   final String attack;
   final String defense;
   final String hp;
   final String type;
   final Color backgroundColor;
-  const StatsTable({super.key, required this.attack, required this.defense, required this.hp, required this.type, required this.backgroundColor});
+  final PokemonDetails pokemon; // Agregamos el pokemon completo
+
+  const StatsTable({
+    super.key,
+    required this.attack,
+    required this.defense,
+    required this.hp,
+    required this.type,
+    required this.backgroundColor,
+    required this.pokemon, // Nuevo parámetro requerido
+  });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     const double cellHeight = 56;
     const double cellWidth = 140;
+
+    final pokemonNotifier = ref.read(pokemonProvider.notifier);
+    final pokemonAsyncValue = ref.watch(pokemonProvider);
 
     return Container(
       padding: const EdgeInsets.all(18),
@@ -22,6 +38,7 @@ class StatsTable extends StatelessWidget {
       child: Column(
         spacing: 16,
         children: [
+          SizedBox(height: MediaQuery.of(context).size.height * 0.04),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
@@ -65,19 +82,71 @@ class StatsTable extends StatelessWidget {
             width: double.infinity,
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.grey[800],
+                backgroundColor: pokemonAsyncValue.when(
+                  data: (state) => pokemonNotifier.isFavorite(pokemon) ? Colors.red[600] : Colors.grey[800],
+                  loading: () => Colors.grey[800],
+                  error: (_, __) => Colors.grey[800],
+                ),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12),
                 ),
                 padding: const EdgeInsets.symmetric(vertical: 18),
               ),
-              onPressed: () {},
-              child: const Text(
-                'Yo te elijo!',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 18,
+              onPressed: () async {
+                await pokemonNotifier.toggleFavorite(pokemon);
+
+                // Mostrar mensaje de confirmación
+                if (context.mounted) {
+                  final isFavorite = pokemonNotifier.isFavorite(pokemon);
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text(
+                        isFavorite ? '${pokemon.name} agregado a favoritos!' : '${pokemon.name} removido de favoritos',
+                      ),
+                      duration: const Duration(seconds: 2),
+                      backgroundColor: isFavorite ? Colors.green : Colors.orange,
+                    ),
+                  );
+                }
+              },
+              child: pokemonAsyncValue.when(
+                data: (state) {
+                  final isFavorite = pokemonNotifier.isFavorite(pokemon);
+                  return Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        isFavorite ? Icons.favorite : Icons.favorite_border,
+                        color: Colors.white,
+                        size: 20,
+                      ),
+                      const SizedBox(width: 8),
+                      Text(
+                        isFavorite ? '¡Ya te elegí!' : 'Yo te elijo!',
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18,
+                        ),
+                      ),
+                    ],
+                  );
+                },
+                loading: () => const Text(
+                  'Yo te elijo!',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18,
+                  ),
+                ),
+                error: (_, __) => const Text(
+                  'Yo te elijo!',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18,
+                  ),
                 ),
               ),
             ),
