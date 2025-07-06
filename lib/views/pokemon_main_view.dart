@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pokepok/models/pokemon_details.dart';
 import 'package:pokepok/providers/pokemon_provider.dart';
-import 'package:pokepok/widgets/fav_pokemons.dart';
+import 'package:pokepok/views/fav_pokemons.dart';
 import 'package:pokepok/widgets/pokemon_header.dart';
 import 'package:pokepok/widgets/pokemon_image.dart';
 import 'package:pokepok/widgets/stats_table.dart';
@@ -36,7 +36,7 @@ class PokemonMainView extends ConsumerWidget {
                 iconSize: 40,
                 onPressed: () {
                   Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => FavPokemons()),
+                    MaterialPageRoute(builder: (context) => const FavPokemons()),
                   );
                 },
               ),
@@ -56,13 +56,14 @@ class PokemonMainView extends ConsumerWidget {
                   pokemonName: pokemon.name,
                   pokemonId: pokemon.id,
                 ),
-                const SizedBox(height: 300),
+                SizedBox(height: MediaQuery.of(context).size.height * 0.35),
                 StatsTable(
                   attack: pokemon.stats[1].baseStat.toString(),
                   defense: pokemon.stats[2].baseStat.toString(),
                   hp: pokemon.stats[0].baseStat.toString(),
                   type: pokemon.types[0].typeName,
                   backgroundColor: backgroundColor,
+                  pokemon: pokemon,
                 ),
               ],
             ),
@@ -70,7 +71,7 @@ class PokemonMainView extends ConsumerWidget {
               top: 0,
               left: 0,
               right: 10,
-              bottom: 300,
+              bottom: MediaQuery.of(context).size.height * 0.26,
               child: PokemonImage(pokemonImage: pokemon.sprite),
             ),
           ],
